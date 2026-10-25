@@ -1,45 +1,55 @@
 # Kerala Landslide Risk Estimation
 
-I built this project to explore how rainfall, terrain susceptibility, and land use relate to landslide types recorded during Kerala's 2018 monsoon. I used QGIS to combine the spatial data and compared machine-learning models to classify recorded events as debris flows, shallow slides, or rockfalls.
+A GIS and machine-learning project I developed for the IEDC Summit Data Science Contest. I combined Kerala's 2018 landslide inventory with rainfall, terrain, land-use, and landslide-susceptibility data to classify recorded landslide types.
 
-**Achievement:** Consolation Prize, IEDC Summit Data Science Contest
+**Achievement:** Consolation Prize, IEDC Summit Data Science Contest.
 
-> This project classifies landslide types; it does not predict whether or when a landslide will occur.
+> This project classifies observed landslide types; it does not predict whether or when a landslide will occur.
 
-## Workflow and results
+## Project overview
 
-I integrated the landslide inventory with rainfall station, GSI susceptibility, land-use, and terrain data. The final dataset contains 4,606 events. I compared Decision Tree, Random Forest, and Gradient Boosted Trees using 5-fold cross-validation.
+I used QGIS for spatial processing and integration, then Altair AI Studio (RapidMiner) to compare models for three classes:
 
-| Model | Accuracy |
-|---|---:|
-| Decision Tree | 72.12% |
-| Random Forest | 73.88% |
-| Gradient Boosted Trees | 73.93% |
+- Debris Flow
+- Shallow/Surficial Slide
+- Rockfall
 
-Gradient Boosted Trees had the highest overall accuracy. Slope was the most important feature. Rockfall was underrepresented, so its classification remained challenging.
+## Data sources
 
-## Limitations
+- **2018 Kerala landslide inventory:** [University of Twente dataset](https://research.utwente.nl/en/datasets/landslide-inventory-of-the-2018-monsoon-rainfall-in-kerala-india/)
+- **Rainfall observations:** [National Water Data Portal](https://nwdp.nwic.gov.in/)
+- **Landslide susceptibility:** [Kerala State Disaster Management Authority hazard maps](https://sdma.kerala.gov.in/hazard-maps/)
 
-- The inventory has no reliable non-landslide samples, so I classify landslide type rather than occurrence risk.
-- The results show associations, not causation, and are not a real-time warning system.
-- Rainfall estimates may be uncertain because some events are far from the nearest station.
+Please consult the original sources for data licences and attribution requirements.
+
+## Methodology
+
+I processed and reprojected spatial data to **EPSG:32643**, joined susceptibility information, and associated rainfall station features using nearest-station analysis. I prepared a dataset of 4,606 events and compared Decision Tree, Random Forest, and Gradient Boosted Trees using 5-fold cross-validation.
+
+## Results
+
+- **Best reported model:** Gradient Boosted Trees
+- **Accuracy:** 73.93%
+- **Most important feature:** Slope, based on the reported feature-importance results
+
+These results describe classification of recorded events, not prediction of future landslide occurrence. Feature importance indicates model reliance, not causation.
+
+## Tools and technologies
+
+QGIS · Altair AI Studio (RapidMiner) · Python/CSV and geospatial data · spatial joins · feature engineering · Decision Tree · Random Forest · Gradient Boosted Trees
 
 ## Repository contents
 
-```text
-.
-├── 02_PROCESSED_DATA/
-│   ├── Kerala_Landslide_ML_Dataset.csv
-│   └── Rainfall_Station_Features_2018.csv
-├── 03_RAPIDMINER/
-│   └── Kerala_Landslide_Risk_Model.rmp
-├── 04_PRESENTATION/
-│   └── Kerala_Landslide_Risk_Estimation.pptx
-└── screenshots/
-    ├── qgis_map.png
-    ├── model_workflow.png
-    └── feature_importance.png
-```
+- `02_PROCESSED_DATA/` — processed ML and rainfall station CSV datasets
+- `03_RAPIDMINER/` — machine-learning workflow
+- `04_PRESENTATION/` — project presentation
+- `screenshots/` — map, workflow, and feature-importance images
+
+## Limitations
+
+- The project focuses on the 2018 inventory and has no reliable non-landslide samples for occurrence modeling.
+- Individual landslide dates were unavailable for reliable event-level, pre-event rainfall matching; nearest stations may also be distant.
+- Further data and validation are needed before applying the findings to future risk or warning systems.
 
 ## Screenshots
 
@@ -49,8 +59,6 @@ Gradient Boosted Trees had the highest overall accuracy. Slope was the most impo
 
 ![Feature importance](./screenshots/feature_importance.png)
 
-## About me
+## Acknowledgement
 
-**Fathima M J** · B.Tech Artificial Intelligence & Data Science · Ilahia College of Engineering and Technology
-
-I used QGIS and Altair AI Studio / RapidMiner. The repository contains processed datasets and project materials; original source datasets are not included.
+I developed this project for the IEDC Summit Data Science Contest, where it received a Consolation Prize.
