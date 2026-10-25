@@ -1,4 +1,4 @@
-# Kerala Landslide Risk Estimation
+ Kerala Landslide Risk Estimation
 
 A GIS and machine-learning project I developed for the IEDC Summit Data Science Contest. I combined Kerala's 2018 landslide inventory with rainfall, terrain, land-use, and landslide-susceptibility data to classify recorded landslide types.
 
